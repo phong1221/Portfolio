@@ -1,0 +1,80 @@
+[
+    {
+        "id": 1,
+        "title": "Responsive Design là gì và tại sao quan trọng?",
+        "category": "Web & App Notes",
+        "date": "2024-11-15",
+        "excerpt": "Tìm hiểu về responsive design và cách làm cho website hiển thị tốt trên mọi thiết bị",
+        "content": "Responsive design là phương pháp thiết kế web giúp website tự động điều chỉnh bố cục theo kích thước màn hình...",
+        "tags": [
+            "CSS",
+            "Responsive",
+            "Web Design"
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Kết nối Database với Node.js",
+        "category": "Web & App Notes",
+        "date": "2024-11-10",
+        "excerpt": "Hướng dẫn kết nối và thao tác với PostgreSQL, MySQL trong Node.js",
+        "content": "Để kết nối database với Node.js, chúng ta có thể sử dụng nhiều thư viện khác nhau...",
+        "tags": [
+            "Node.js",
+            "Database",
+            "PostgreSQL",
+            "MySQL"
+        ]
+    },
+    {
+        "id": 3,
+        "title": "React Hooks: useState và useEffect",
+        "category": "Web & App Notes",
+        "date": "2024-11-05",
+        "excerpt": "Giải thích chi tiết về 2 hooks cơ bản nhất trong React",
+        "content": "useState và useEffect là 2 hooks quan trọng nhất mà mọi React developer cần nắm vững...",
+        "tags": [
+            "React",
+            "Hooks",
+            "JavaScript"
+        ]
+    },
+    {
+        "id": 4,
+        "title": "Bug dở khóc dở cười: Quên await async function",
+        "category": "Stories / Nhật ký code",
+        "date": "2024-11-20",
+        "excerpt": "Câu chuyện debug 3 tiếng vì quên thêm từ khóa await",
+        "content": "Hôm nay mình gặp bug siêu dở khóc dở cười. Mất 3 tiếng để tìm ra lỗi, hoá ra chỉ vì quên await...",
+        "tags": [
+            "Debug",
+            "JavaScript",
+            "Async"
+        ]
+    },
+    {
+        "id": 5,
+        "title": "Deadline và áp lực của sinh viên năm cuối",
+        "category": "Stories / Nhật ký code",
+        "date": "2024-11-18",
+        "excerpt": "Chia sẻ về cách mình đối mặt với deadline và stress khi làm đồ án",
+        "content": "Là sinh viên năm cuối, deadline là điều không thể tránh khỏi. Đồ án, báo cáo, project cá nhân...",
+        "tags": [
+            "Student Life",
+            "Project Management"
+        ]
+    },
+    {
+        "id": 6,
+        "title": "Hành trình tự học Web Development",
+        "category": "Stories / Nhật ký code",
+        "date": "2024-11-12",
+        "excerpt": "Từ HTML/CSS cơ bản đến React và Node.js - câu chuyện của mình",
+        "content": "Mình bắt đầu học web từ năm 2, lúc đầu chỉ biết HTML, CSS cơ bản. Rồi từ từ học JavaScript...",
+        "tags": [
+            "Learning",
+            "Web Development",
+            "Journey"
+        ]
+    }
+]

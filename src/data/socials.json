@@ -1,0 +1,22 @@
+[
+    {
+        "name": "GitHub",
+        "url": "https://github.com/dangquangphong",
+        "icon": "github"
+    },
+    {
+        "name": "Facebook",
+        "url": "https://facebook.com/dangquangphong",
+        "icon": "facebook"
+    },
+    {
+        "name": "TikTok",
+        "url": "https://tiktok.com/@dangquangphong",
+        "icon": "tiktok"
+    },
+    {
+        "name": "Email",
+        "url": "mailto:dangquangphong@example.com",
+        "icon": "mail"
+    }
+]
