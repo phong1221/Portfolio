@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { motion } from 'framer-motion';
 
 interface CardProps {
@@ -11,17 +11,18 @@ const Card = ({ children, className = '', hover = true }: CardProps) => {
     return (
         <motion.div
             className={`
-        bg-white dark:bg-gray-800 
-        rounded-lg shadow-md 
-        border border-gray-200 dark:border-gray-700
-        overflow-hidden
-        ${hover ? 'hover:shadow-xl' : ''}
-        ${className}
-      `}
-            whileHover={hover ? { y: -5, scale: 1.02 } : {}}
-            transition={{ duration: 0.3 }}
+                glass-card
+                rounded-2xl
+                overflow-hidden
+                p-1
+                ${className}
+            `}
+            whileHover={hover ? { y: -5 } : {}}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
         >
-            {children}
+            <div className="bg-bg-tertiary/40 backdrop-blur-sm rounded-xl h-full w-full overflow-hidden">
+                {children}
+            </div>
         </motion.div>
     );
 };

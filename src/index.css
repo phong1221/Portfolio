@@ -1,75 +1,106 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
 
 @theme {
-  /* Custom color palette */
-  --color-pastel-beige: #F5E6D3;
-  --color-pastel-blue: #D4E4F7;
-  --color-pastel-green: #D4F1E8;
-  --color-pastel-beige-dark: #E8D4B8;
-  --color-pastel-blue-dark: #B8CEE8;
-  --color-pastel-green-dark: #B8E8D8;
+  --color-bg-primary: #050505;
+  --color-bg-secondary: #0a0a0a;
+  --color-bg-tertiary: #121212;
 
-  /* Custom fonts */
-  --font-mono: 'Space Mono', 'JetBrains Mono', 'Courier New', monospace;
-  --font-sans: 'Inter', 'Montserrat', system-ui, sans-serif;
+  --color-accent: #3b82f6;
+  --color-accent-dark: #2563eb;
+  --color-accent-light: #60a5fa;
+  --color-accent-glow: rgba(59, 130, 246, 0.5);
+
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+
+  --font-sans: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --animate-blob: blob 7s infinite;
+  --animate-fade-in: fadeIn 0.5s ease-out forwards;
+  --animate-slide-up: slideUp 0.5s ease-out forwards;
+
+  @keyframes blob {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
-:root {
-  --bg-light: #FAFAF9;
-  --bg-dark: #1A1A1A;
-  --text-light: #2C2C2C;
-  --text-dark: #E8E8E8;
-  --grid-light: rgba(0, 0, 0, 0.03);
-  --grid-dark: rgba(255, 255, 255, 0.05);
+@layer base {
+  body {
+    @apply bg-bg-primary text-text-primary font-sans antialiased overflow-x-hidden;
+  }
+
+  ::selection {
+    @apply bg-accent text-white;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-bg-primary;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-800 rounded-full hover:bg-accent transition-colors;
+  }
 }
 
-* {
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-}
+@layer utilities {
+  .glass-panel {
+    @apply bg-bg-secondary/70 backdrop-blur-xl border border-white/5 shadow-xl;
+  }
 
-body {
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: var(--bg-light);
-  color: var(--text-light);
-}
+  .glass-card {
+    @apply bg-bg-tertiary/50 backdrop-blur-md border border-white/5 hover:border-accent/30 transition-all duration-300;
+  }
 
-body.dark {
-  background-color: var(--bg-dark);
-  color: var(--text-dark);
-}
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-accent-light;
+  }
 
-/* Grid paper texture background */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background-image:
-    linear-gradient(var(--grid-light) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-light) 1px, transparent 1px);
-  background-size: 20px 20px;
-  opacity: 1;
-  pointer-events: none;
-}
-
-body.dark::before {
-  background-image:
-    linear-gradient(var(--grid-dark) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-dark) 1px, transparent 1px);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-mono);
-  font-weight: bold;
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-[0_0_20px_var(--color-accent-glow)] hover:border-accent;
+  }
 }

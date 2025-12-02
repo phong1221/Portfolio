@@ -1,12 +1,12 @@
 [
     {
         "name": "GitHub",
-        "url": "https://github.com/dangquangphong",
+        "url": "https://github.com/phong1221",
         "icon": "github"
     },
     {
         "name": "Facebook",
-        "url": "https://facebook.com/dangquangphong",
+        "url": "https://www.facebook.com/quang.phong.844708/",
         "icon": "facebook"
     },
     {
@@ -16,7 +16,7 @@
     },
     {
         "name": "Email",
-        "url": "mailto:dangquangphong@example.com",
+        "url": "mailto:quangphong4321@gmail.com",
         "icon": "mail"
     }
 ]

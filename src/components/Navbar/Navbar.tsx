@@ -1,110 +1,127 @@
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import ThemeToggle from '../ThemeToggle/ThemeToggle';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const location = useLocation();
 
     const navItems = [
-        { path: '/', label: 'Trang chủ' },
-        { path: '/blog', label: 'Blog' },
-        { path: '/projects', label: 'Dự án' },
-        { path: '/videos', label: 'Videos' },
-        { path: '/resume', label: 'Kinh nghiệm' },
-        { path: '/contact', label: 'Liên hệ' },
+        { path: '/', label: 'Home' },
+        { path: '/about', label: 'About' },
+        { path: '/projects', label: 'Projects' },
+        { path: '/contact', label: 'Contact' },
+        { path: '/resume', label: 'Resume' },
     ];
 
-    const isActive = (path: string) => location.pathname === path;
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 20);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // Close mobile menu on route change
+    useEffect(() => {
+        setIsOpen(false);
+    }, [location]);
 
     return (
-        <nav className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-16">
+        <nav
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+                ? 'py-4'
+                : 'py-6'
+                }`}
+        >
+            <div className={`max-w-7xl mx-auto px-6 transition-all duration-300 ${scrolled ? 'px-4' : 'px-6'}`}>
+                <div className={`
+                    relative flex items-center justify-between px-6 py-3 rounded-2xl transition-all duration-300
+                    ${scrolled
+                        ? 'bg-bg-secondary/80 backdrop-blur-xl border border-white/10 shadow-lg shadow-blue-500/5'
+                        : 'bg-transparent'
+                    }
+                `}>
                     {/* Logo */}
-                    <Link to="/" className="flex items-center space-x-2">
-                        <motion.span
-                            className="text-xl font-mono font-bold text-gray-800 dark:text-gray-100"
-                            whileHover={{ scale: 1.05 }}
-                        >
-                            {'<DQP />'}
-                        </motion.span>
-                    </Link>
+                    <NavLink
+                        to="/"
+                        className="text-2xl font-bold tracking-tighter group relative z-50"
+                    >
+                        <span className="text-white group-hover:text-accent transition-colors duration-300">DQP</span>
+                        <span className="text-accent animate-pulse">.</span>
+                    </NavLink>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center space-x-1">
+                    <div className="hidden md:flex items-center gap-1">
                         {navItems.map((item) => (
-                            <Link
+                            <NavLink
                                 key={item.path}
                                 to={item.path}
-                                className="relative px-3 py-2 text-sm font-medium rounded-lg transition-colors"
+                                className={({ isActive }) =>
+                                    `px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 relative group overflow-hidden ${isActive
+                                        ? 'text-white bg-white/5'
+                                        : 'text-text-secondary hover:text-white hover:bg-white/5'
+                                    }`
+                                }
                             >
-                                <span
-                                    className={`relative z-10 ${isActive(item.path)
-                                            ? 'text-gray-900 dark:text-white'
-                                            : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-                                        }`}
-                                >
-                                    {item.label}
-                                </span>
-                                {isActive(item.path) && (
-                                    <motion.div
-                                        layoutId="navbar-indicator"
-                                        className="absolute inset-0 bg-pastel-beige dark:bg-pastel-beige-dark rounded-lg"
-                                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                                    />
+                                {({ isActive }) => (
+                                    <>
+                                        <span className="relative z-10">{item.label}</span>
+                                        {isActive && (
+                                            <motion.div
+                                                layoutId="navbar-indicator"
+                                                className="absolute inset-0 bg-white/5 rounded-lg -z-0"
+                                                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                            />
+                                        )}
+                                        <div className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/10 to-accent/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                                    </>
                                 )}
-                            </Link>
+                            </NavLink>
                         ))}
-                        <div className="ml-4">
-                            <ThemeToggle />
-                        </div>
                     </div>
 
                     {/* Mobile menu button */}
-                    <div className="md:hidden flex items-center space-x-2">
-                        <ThemeToggle />
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            className="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-                            aria-label="Toggle menu"
-                        >
-                            {isOpen ? <X size={24} /> : <Menu size={24} />}
-                        </button>
-                    </div>
+                    <button
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="md:hidden relative z-50 text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
+                    >
+                        {isOpen ? <X size={24} /> : <Menu size={24} />}
+                    </button>
+
+                    {/* Mobile Navigation Overlay */}
+                    <AnimatePresence>
+                        {isOpen && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                                transition={{ duration: 0.2 }}
+                                className="absolute top-full left-0 right-0 mt-2 p-2 bg-bg-secondary border border-white/10 rounded-2xl shadow-2xl overflow-hidden md:hidden"
+                            >
+                                <div className="space-y-1">
+                                    {navItems.map((item) => (
+                                        <NavLink
+                                            key={item.path}
+                                            to={item.path}
+                                            className={({ isActive }) =>
+                                                `block w-full px-4 py-3 rounded-xl text-left font-medium transition-all duration-300 ${isActive
+                                                    ? 'bg-accent/10 text-accent'
+                                                    : 'text-text-secondary hover:text-white hover:bg-white/5'
+                                                }`
+                                            }
+                                        >
+                                            {item.label}
+                                        </NavLink>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
             </div>
-
-            {/* Mobile Navigation */}
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="md:hidden border-t border-gray-200 dark:border-gray-700"
-                    >
-                        <div className="px-4 py-4 space-y-2 bg-white dark:bg-gray-900">
-                            {navItems.map((item) => (
-                                <Link
-                                    key={item.path}
-                                    to={item.path}
-                                    onClick={() => setIsOpen(false)}
-                                    className={`block px-4 py-2 rounded-lg text-sm font-medium transition-colors ${isActive(item.path)
-                                            ? 'bg-pastel-beige dark:bg-pastel-beige-dark text-gray-900 dark:text-white'
-                                            : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-                                        }`}
-                                >
-                                    {item.label}
-                                </Link>
-                            ))}
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
         </nav>
     );
 };

@@ -1,29 +1,29 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from './contexts/ThemeContext';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home/Home';
-import Blog from './pages/Blog/Blog';
+import About from './pages/About/About';
 import Projects from './pages/Projects/Projects';
-import Videos from './pages/Videos/Videos';
-import Resume from './pages/Resume/Resume';
 import Contact from './pages/Contact/Contact';
+import Resume from './pages/Resume/Resume';
+import Navbar from './components/Navbar/Navbar';
+
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
-    <ThemeProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<Home />} />
-            <Route path="blog" element={<Blog />} />
-            <Route path="projects" element={<Projects />} />
-            <Route path="videos" element={<Videos />} />
-            <Route path="resume" element={<Resume />} />
-            <Route path="contact" element={<Contact />} />
-          </Route>
-        </Routes>
-      </Router>
-    </ThemeProvider>
+    <Router>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="resume" element={<Resume />} />
+          <Route path="*" element={<Home />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 

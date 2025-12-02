@@ -1,81 +1,124 @@
 import { motion } from 'framer-motion';
-import { Github, ExternalLink } from 'lucide-react';
+import { ArrowRight, Github, ExternalLink, Code2 } from 'lucide-react';
+import projectsData from '../../data/projects';
 import Card from '../../components/Card/Card';
-import projectsData from '../../data/projects.json';
 
-const Projects = () => {
+interface ProjectsProps {
+    isSection?: boolean;
+}
+
+const Projects = ({ isSection = false }: ProjectsProps) => {
     return (
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="space-y-8"
-            >
-                {/* Header */}
-                <div className="text-center space-y-4">
-                    <h1 className="text-4xl md:text-5xl font-mono font-bold text-gray-900 dark:text-white">
-                        Dự án của mình 💻
-                    </h1>
-                    <p className="text-lg text-gray-600 dark:text-gray-300">
-                        Những project mình đã làm để học hỏi và thử nghiệm
-                    </p>
+        <div className={`${isSection ? 'py-20' : 'min-h-screen pt-24 pb-20'} relative overflow-hidden`}>
+            {/* Background Elements */}
+            {!isSection && (
+                <div className="fixed inset-0 pointer-events-none">
+                    <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-blue-600/5 blur-[100px] rounded-full animate-blob" />
+                    <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-accent/5 blur-[100px] rounded-full animate-blob animation-delay-4000" />
                 </div>
+            )}
 
-                {/* Projects Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {projectsData.map((project, index) => (
-                        <motion.div
-                            key={project.id}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: index * 0.1, duration: 0.3 }}
-                        >
-                            <Card>
-                                <div className="aspect-video bg-gradient-to-br from-pastel-blue via-pastel-green to-pastel-beige dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 flex items-center justify-center text-6xl">
-                                    {project.id === 1 ? '🛒' : project.id === 2 ? '✅' : project.id === 3 ? '🌤️' : '📝'}
-                                </div>
+            <div className="max-w-7xl mx-auto px-6 relative z-10">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="space-y-12"
+                >
+                    {/* Header */}
+                    <div className="text-center space-y-6">
+                        <h1 className="text-4xl md:text-6xl font-bold text-white">
+                            My <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-400">Projects</span>
+                        </h1>
+                        <p className="text-text-secondary max-w-2xl mx-auto text-lg leading-relaxed">
+                            A collection of my work, ranging from web applications to system tools.
+                            Each project represents a unique challenge and learning opportunity.
+                        </p>
+                    </div>
 
-                                <div className="p-6 space-y-4">
-                                    <h2 className="text-2xl font-mono font-bold text-gray-900 dark:text-white">
-                                        {project.title}
-                                    </h2>
+                    {/* Projects Grid */}
+                    <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+                        {projectsData.map((project, index) => (
+                            <Card key={project.id} className="h-full group">
+                                <div className="flex flex-col h-full">
+                                    {/* Project Image/Preview */}
+                                    <div className="relative h-64 overflow-hidden border-b border-white/5">
+                                        <div className="absolute inset-0 bg-gradient-to-br from-bg-tertiary to-black flex items-center justify-center group-hover:scale-105 transition-transform duration-700">
+                                            <img
+                                                src={project.image}
+                                                alt={project.title}
+                                                className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+                                            />
+                                        </div>
 
-                                    <p className="text-gray-600 dark:text-gray-300">
-                                        {project.description}
-                                    </p>
-
-                                    {/* Tech Stack */}
-                                    <div className="flex flex-wrap gap-2">
-                                        {project.tech.map((tech) => (
-                                            <span
-                                                key={tech}
-                                                className="px-3 py-1 bg-pastel-beige dark:bg-gray-700 rounded-full text-xs font-mono font-medium text-gray-800 dark:text-gray-200"
+                                        {/* Overlay Actions */}
+                                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 backdrop-blur-[2px]">
+                                            <a
+                                                href={project.github}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="p-3 bg-white text-black rounded-full hover:scale-110 transition-transform duration-300"
+                                                title="View Source Code"
                                             >
-                                                {tech}
-                                            </span>
-                                        ))}
+                                                <Github size={24} />
+                                            </a>
+                                            <a
+                                                href="#"
+                                                className="p-3 bg-accent text-white rounded-full hover:scale-110 transition-transform duration-300"
+                                                title="Live Demo"
+                                            >
+                                                <ExternalLink size={24} />
+                                            </a>
+                                        </div>
                                     </div>
 
-                                    {/* Action Buttons */}
-                                    <div className="flex gap-3 pt-2">
-                                        <motion.a
-                                            href={project.github}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-900 dark:bg-gray-700 text-white rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-600 transition-colors"
-                                            whileHover={{ scale: 1.02 }}
-                                            whileTap={{ scale: 0.98 }}
-                                        >
-                                            <Github size={18} />
-                                            View on GitHub
-                                        </motion.a>
+                                    <div className="p-8 flex-grow flex flex-col">
+                                        <div className="flex justify-between items-start mb-4">
+                                            <h3 className="text-2xl font-bold text-white group-hover:text-accent transition-colors">
+                                                {project.title}
+                                            </h3>
+                                            <Code2 className="text-text-muted group-hover:text-accent transition-colors" size={24} />
+                                        </div>
+
+                                        <p className="text-text-secondary mb-6 line-clamp-3 leading-relaxed flex-grow">
+                                            {project.description}
+                                        </p>
+
+                                        <div className="space-y-6">
+                                            <div className="flex flex-wrap gap-2">
+                                                {project.tech.map((t) => (
+                                                    <span key={t} className="px-3 py-1 text-xs font-medium text-text-secondary bg-white/5 rounded-full border border-white/5 group-hover:border-accent/20 group-hover:bg-accent/5 transition-colors">
+                                                        {t}
+                                                    </span>
+                                                ))}
+                                            </div>
+
+                                            <div className="pt-6 border-t border-white/5 flex justify-between items-center">
+                                                <a
+                                                    href={project.github}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center gap-2 text-sm font-medium text-text-secondary hover:text-white transition-colors group/link"
+                                                >
+                                                    <Github size={16} />
+                                                    <span>Source Code</span>
+                                                </a>
+                                                <a
+                                                    href="#"
+                                                    className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent-light transition-colors group/link"
+                                                >
+                                                    <span>Live Demo</span>
+                                                    <ArrowRight size={16} className="group-hover/link:translate-x-1 transition-transform" />
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </Card>
-                        </motion.div>
-                    ))}
-                </div>
-            </motion.div>
+                        ))}
+                    </div>
+                </motion.div>
+            </div>
         </div>
     );
 };
