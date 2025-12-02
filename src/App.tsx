@@ -5,7 +5,7 @@ import About from './pages/About/About';
 import Projects from './pages/Projects/Projects';
 import Contact from './pages/Contact/Contact';
 import Resume from './pages/Resume/Resume';
-import Navbar from './components/Navbar/Navbar';
+
 
 import ScrollToTop from './components/ScrollToTop';
 

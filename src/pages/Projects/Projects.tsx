@@ -38,7 +38,7 @@ const Projects = ({ isSection = false }: ProjectsProps) => {
 
                     {/* Projects Grid */}
                     <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
-                        {projectsData.map((project, index) => (
+                        {projectsData.map((project) => (
                             <Card key={project.id} className="h-full group">
                                 <div className="flex flex-col h-full">
                                     {/* Project Image/Preview */}
